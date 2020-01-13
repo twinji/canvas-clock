@@ -37,9 +37,9 @@ function render(c) {
     // calculate hand rotations and radius
     var secondsHandAngle = (time.seconds / 60 * 2 * Math.PI) - Math.PI / 2;
     var secondsHandRadius = radius * 0.9;
-    var minutesHandAngle = (time.minutes / 60 * 2 * Math.PI) - Math.PI / 2;
+    var minutesHandAngle = ((time.minutes + time.seconds / 60) / 60 * 2 * Math.PI) - Math.PI / 2;
     var minutesHandRadius = radius * 0.75;
-    var hoursHandAngle = (time.hours / 12 * 2 * Math.PI) - Math.PI / 2;
+    var hoursHandAngle = ((time.hours + time.minutes / 60) / 12 * 2 * Math.PI) - Math.PI / 2;
     var hoursHandRadius = radius * 0.55;
 
     // set stroke values
