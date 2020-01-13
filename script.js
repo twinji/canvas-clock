@@ -9,6 +9,9 @@ var minutesHandRadius;
 var hoursHandAngle;
 var hoursHandRadius;
 
+// unit for scaled sizing
+var unitSize;
+
 // width and height of window
 const WIDTH = window.innerWidth, 
       HEIGHT = window.innerHeight;
@@ -33,7 +36,12 @@ window.onload = function(e) {
     window.requestAnimationFrame(loop, canvas);
 }
 
-function init(c) {}
+function init(c) {
+
+    // set size unit based on screen size
+    unitSize = (HEIGHT > WIDTH ? WIDTH : HEIGHT) * 0.001;
+
+}
 
 function update() {
 
@@ -65,14 +73,14 @@ function render(c) {
     c.clearRect(0, 0, WIDTH, HEIGHT);
 
     // draw clock border
-    c.lineWidth = 6;
+    c.lineWidth = unitSize * 6;
     c.beginPath();
     c.arc(WIDTH / 2, HEIGHT / 2, radius, 0, 2 * Math.PI);
     c.stroke();
     c.closePath();
 
     // draw seconds hand
-    c.lineWidth = 1;
+    c.lineWidth = unitSize * 1;
     c.beginPath();
     c.moveTo(WIDTH / 2, HEIGHT / 2);
     c.lineTo(WIDTH / 2 + Math.cos(secondsHandAngle) * secondsHandRadius, HEIGHT / 2 + Math.sin(secondsHandAngle) * secondsHandRadius);
@@ -80,7 +88,7 @@ function render(c) {
     c.closePath();
 
     // draw minutes hand
-    c.lineWidth = 7;
+    c.lineWidth = unitSize * 7;
     c.beginPath();
     c.moveTo(WIDTH / 2, HEIGHT / 2);
     c.lineTo(WIDTH / 2 + Math.cos(minutesHandAngle) * minutesHandRadius, HEIGHT / 2 + Math.sin(minutesHandAngle) * minutesHandRadius);
@@ -88,7 +96,7 @@ function render(c) {
     c.closePath();
 
     // draw hours hand
-    c.lineWidth = 7;
+    c.lineWidth = unitSize * 7;
     c.beginPath();
     c.moveTo(WIDTH / 2, HEIGHT / 2);
     c.lineTo(WIDTH / 2 + Math.cos(hoursHandAngle) * hoursHandRadius, HEIGHT / 2 + Math.sin(hoursHandAngle) * hoursHandRadius);
@@ -101,7 +109,7 @@ function render(c) {
         // determine angle, length and width of spoke
         var spokeAngle = i / 60 * 2 * Math.PI;
         var spokeLength = i % 5 == 0 ? radius * 0.1 : radius * 0.05;
-        c.lineWidth = i % 5 == 0 ? 3 : 1;
+        c.lineWidth = unitSize * (i % 5 == 0 ? 3 : 1);
 
         // draw single spoke
         c.beginPath();
