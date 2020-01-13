@@ -1,7 +1,7 @@
 // the time
 var time;
 
-// hand rotations and radius
+// hand rotations and radii
 var secondsHandAngle;
 var secondsHandRadius;
 var minutesHandAngle;
@@ -100,7 +100,7 @@ function render(c) {
     // draw spokes
     for (var i = 0; i < 60; i++) {
 
-        // determine angle, length and width of spoke
+        // determine angle and length of spoke
         var spokeAngle = i / 60 * 2 * Math.PI;
         var spokeLength = i % 5 == 0 ? radius * 0.1 : radius * 0.05;
 
