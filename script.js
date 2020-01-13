@@ -39,6 +39,8 @@ function render(c) {
     var secondsHandRadius = radius * 0.9;
     var minutesHandAngle = (time.minutes / 60 * 2 * Math.PI) - Math.PI / 2;
     var minutesHandRadius = radius * 0.75;
+    var hoursHandAngle = (time.hours / 12 * 2 * Math.PI) - Math.PI / 2;
+    var hoursHandRadius = radius * 0.55;
 
     // set stroke values
     c.strokeStyle = "white";
@@ -66,6 +68,14 @@ function render(c) {
     c.beginPath();
     c.moveTo(WIDTH / 2, HEIGHT / 2);
     c.lineTo(WIDTH / 2 + Math.cos(minutesHandAngle) * minutesHandRadius, HEIGHT / 2 + Math.sin(minutesHandAngle) * minutesHandRadius);
+    c.stroke();
+    c.closePath();
+
+    // draw hours hand
+    c.lineWidth = 5;
+    c.beginPath();
+    c.moveTo(WIDTH / 2, HEIGHT / 2);
+    c.lineTo(WIDTH / 2 + Math.cos(hoursHandAngle) * hoursHandRadius, HEIGHT / 2 + Math.sin(hoursHandAngle) * hoursHandRadius);
     c.stroke();
     c.closePath();
 
