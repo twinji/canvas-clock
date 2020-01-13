@@ -71,7 +71,7 @@ function render(c) {
     c.closePath();
 
     // draw minutes hand
-    c.lineWidth = 5;
+    c.lineWidth = 7;
     c.beginPath();
     c.moveTo(WIDTH / 2, HEIGHT / 2);
     c.lineTo(WIDTH / 2 + Math.cos(minutesHandAngle) * minutesHandRadius, HEIGHT / 2 + Math.sin(minutesHandAngle) * minutesHandRadius);
@@ -79,7 +79,7 @@ function render(c) {
     c.closePath();
 
     // draw hours hand
-    c.lineWidth = 5;
+    c.lineWidth = 7;
     c.beginPath();
     c.moveTo(WIDTH / 2, HEIGHT / 2);
     c.lineTo(WIDTH / 2 + Math.cos(hoursHandAngle) * hoursHandRadius, HEIGHT / 2 + Math.sin(hoursHandAngle) * hoursHandRadius);
