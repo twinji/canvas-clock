@@ -37,10 +37,6 @@ function init(c) {}
 
 function update() {
 
-    // log the time
-    var time = theTime();
-    console.log(time.hours + ":" + time.minutes + ":" + time.seconds);
-
     // get current time
     var time = theTime();
 
