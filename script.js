@@ -1,3 +1,14 @@
+// the time
+var time;
+
+// hand rotations and radius
+var secondsHandAngle;
+var secondsHandRadius;
+var minutesHandAngle;
+var minutesHandRadius;
+var hoursHandAngle;
+var hoursHandRadius;
+
 // width and height of window
 const WIDTH = window.innerWidth, 
       HEIGHT = window.innerHeight;
@@ -30,23 +41,25 @@ function update() {
     var time = theTime();
     console.log(time.hours + ":" + time.minutes + ":" + time.seconds);
 
+    // get current time
+    var time = theTime();
+
+    // calculate hand rotations
+    secondsHandAngle = (time.seconds / 60 * 2 * Math.PI) - Math.PI / 2;
+    minutesHandAngle = ((time.minutes + time.seconds / 60) / 60 * 2 * Math.PI) - Math.PI / 2;
+    hoursHandAngle = (((time.hours + time.minutes / 60) % 12) / 12 * 2 * Math.PI) - Math.PI / 2;
+
 }
 
 function render(c) {
 
     // determine appropriate radius
     var radius = (HEIGHT > WIDTH ? WIDTH : HEIGHT) / 2 * 0.9;
-    
-    // get current time
-    var time = theTime();
 
-    // calculate hand rotations and radius
-    var secondsHandAngle = (time.seconds / 60 * 2 * Math.PI) - Math.PI / 2;
-    var secondsHandRadius = radius * 0.9;
-    var minutesHandAngle = ((time.minutes + time.seconds / 60) / 60 * 2 * Math.PI) - Math.PI / 2;
-    var minutesHandRadius = radius * 0.85;
-    var hoursHandAngle = (((time.hours + time.minutes / 60) % 12) / 12 * 2 * Math.PI) - Math.PI / 2;
-    var hoursHandRadius = radius * 0.5;
+    // calculate hand radii
+    secondsHandRadius = radius * 0.9;
+    minutesHandRadius = radius * 0.85;
+    hoursHandRadius = radius * 0.5;
 
     // set stroke values
     c.strokeStyle = "white";
