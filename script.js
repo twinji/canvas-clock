@@ -41,6 +41,10 @@ function init(c) {
     // set size unit based on screen size
     unitSize = (HEIGHT > WIDTH ? WIDTH : HEIGHT) * 0.001;
 
+    // set stroke values
+    c.strokeStyle = "white";
+    c.lineCap = "round";
+
 }
 
 function update() {
@@ -65,10 +69,6 @@ function render(c) {
     minutesHandRadius = radius * 0.85;
     hoursHandRadius = radius * 0.5;
 
-    // set stroke values
-    c.strokeStyle = "white";
-    c.lineCap = "round";
-
     // clear previous frame
     c.clearRect(0, 0, WIDTH, HEIGHT);
 
@@ -80,28 +80,22 @@ function render(c) {
     c.closePath();
 
     // draw seconds hand
-    c.lineWidth = unitSize * 1;
-    c.beginPath();
-    c.moveTo(WIDTH / 2, HEIGHT / 2);
-    c.lineTo(WIDTH / 2 + Math.cos(secondsHandAngle) * secondsHandRadius, HEIGHT / 2 + Math.sin(secondsHandAngle) * secondsHandRadius);
-    c.stroke();
-    c.closePath();
+    drawLine(c, WIDTH / 2, HEIGHT / 2, 
+        WIDTH / 2 + Math.cos(secondsHandAngle) * secondsHandRadius, 
+        HEIGHT / 2 + Math.sin(secondsHandAngle) * secondsHandRadius, 
+        unitSize * 1);
 
     // draw minutes hand
-    c.lineWidth = unitSize * 7;
-    c.beginPath();
-    c.moveTo(WIDTH / 2, HEIGHT / 2);
-    c.lineTo(WIDTH / 2 + Math.cos(minutesHandAngle) * minutesHandRadius, HEIGHT / 2 + Math.sin(minutesHandAngle) * minutesHandRadius);
-    c.stroke();
-    c.closePath();
+    drawLine(c, WIDTH / 2, HEIGHT / 2, 
+        WIDTH / 2 + Math.cos(minutesHandAngle) * minutesHandRadius, 
+        HEIGHT / 2 + Math.sin(minutesHandAngle) * minutesHandRadius, 
+        unitSize * 7);
 
     // draw hours hand
-    c.lineWidth = unitSize * 7;
-    c.beginPath();
-    c.moveTo(WIDTH / 2, HEIGHT / 2);
-    c.lineTo(WIDTH / 2 + Math.cos(hoursHandAngle) * hoursHandRadius, HEIGHT / 2 + Math.sin(hoursHandAngle) * hoursHandRadius);
-    c.stroke();
-    c.closePath();
+    drawLine(c, WIDTH / 2, HEIGHT / 2, 
+        WIDTH / 2 + Math.cos(hoursHandAngle) * hoursHandRadius, 
+        HEIGHT / 2 + Math.sin(hoursHandAngle) * hoursHandRadius, 
+        unitSize * 7);
 
     // draw spokes
     for (var i = 0; i < 60; i++) {
@@ -109,16 +103,25 @@ function render(c) {
         // determine angle, length and width of spoke
         var spokeAngle = i / 60 * 2 * Math.PI;
         var spokeLength = i % 5 == 0 ? radius * 0.1 : radius * 0.05;
-        c.lineWidth = unitSize * (i % 5 == 0 ? 3 : 1);
 
         // draw single spoke
-        c.beginPath();
-        c.moveTo(WIDTH / 2 + Math.cos(spokeAngle) * (radius - spokeLength), HEIGHT / 2 + Math.sin(spokeAngle) * (radius - spokeLength));
-        c.lineTo(WIDTH / 2 + Math.cos(spokeAngle) * radius, HEIGHT / 2 + Math.sin(spokeAngle) * radius);
-        c.stroke();
-        c.closePath();
+        drawLine(c, WIDTH / 2 + Math.cos(spokeAngle) * (radius - spokeLength), 
+            HEIGHT / 2 + Math.sin(spokeAngle) * (radius - spokeLength), 
+            WIDTH / 2 + Math.cos(spokeAngle) * radius, 
+            HEIGHT / 2 + Math.sin(spokeAngle) * radius,
+            unitSize * (i % 5 == 0 ? 3 : 1));
         
     }
+}
+
+// helper for drawing lines
+function drawLine(c, x1, y1, x2, y2, width) {
+    c.lineWidth = width;
+    c.beginPath();
+    c.moveTo(x1, y1);
+    c.lineTo(x2, y2);
+    c.stroke();
+    c.closePath();
 }
 
 // returns the current time as a JSON object
